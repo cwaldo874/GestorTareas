@@ -1,0 +1,20 @@
+<div *ngIf="task" class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <h5 class="mb-1">
+        {{ task.nombre }}
+        <small>
+            <span id="miBadge" class="badge"
+                [ngClass]="{'badge-success': task.completada, 'badge-danger': !task.completada}">
+                {{ task.completada ? 'Completada' : 'Pendiente' }}
+            </span>
+        </small>
+    </h5>
+    <small>{{ task.fechaTarea| date:'yyyy-MM-dd' }}</small>
+</div>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <p class="mb-1">{{ task.descripcion }}</p>
+</div>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <p class="mb-1"> <b>Categoria: </b>{{ task.categoria.nombre}}</p>
+</div>
+
+

@@ -1,0 +1,12 @@
+
+ 
+
+  .badge-success {
+    background-color: green; /* Estilo para tareas completadas */
+    color: #000;
+  }
+  
+  .badge-danger {
+    background-color: red; /* Estilo para tareas pendientes */
+    color: #000;
+  }

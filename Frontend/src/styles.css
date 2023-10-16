@@ -1,0 +1,70 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #3498db, #9b59b6);
+    background-size: cover;
+    margin: 0;
+    margin-top: 1em;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #3498db;
+}
+h4 {
+    color: #3498db;
+}
+
+.task {
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+
+.list-group {
+    --bs-list-group-bg: transparent;
+    --bs-list-group-border-color: transparent;
+    display: block;
+    --bs-list-group-item-padding-x: 0px;
+    --bs-list-group-item-padding-y: 0px;
+    --bs-list-group-border-width: 0px;
+}
+
+.list-group-item+.list-group-item {
+    border-top-width: 1px;
+}
+
+p {
+    text-align: justify;
+}
+.invalid-feedback {
+    display: block;
+}

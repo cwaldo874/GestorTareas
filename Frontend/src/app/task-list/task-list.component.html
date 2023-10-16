@@ -1,0 +1,32 @@
+<div class="align-items-center">
+    
+    <div class="align-items-center">
+        <h1>Lista de Tareas</h1>
+    </div>
+    <div class="d-flex">
+        <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary btn-sm me-2" (click)="createTask()">Crear Tarea</button>
+        </div>
+        <div class="align-items-center">
+            <select [(ngModel)]="searchTerm" (change)="filterTasks()" class="form-select form-select-sm me-2">
+                <option value="">Todas las categorías</option>
+                <option [ngValue]="category" *ngFor="let category of categories">{{category.nombre}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<ul class="list-group">
+    <li class="list-group-item task" *ngFor="let task of tasks">
+        <app-task-detail [task]="task"></app-task-detail>
+        <div class="d-flex">
+            <button class="btn btn-outline-secondary btn-sm me-2" (click)="changeTaskState(task)">
+                {{task.completada?"Reiniciar":"Finalizar"}}</button>
+            <button class="btn btn-outline-secondary btn-sm me-2" (click)="editTask(task)">Editar</button>
+            <button class="btn btn-outline-secondary btn-sm me-2" (click)="deleteTask(task)">Eliminar</button>
+        </div>
+    </li>
+</ul>
+<div class="align-items-center">
+    <button class="btn btn-outline-secondary btn-sm me-2 align-items-center" (click)="sessionClose()">Cerrar
+        Sesión</button>
+</div>

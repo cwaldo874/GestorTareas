@@ -1,0 +1,39 @@
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Tarea</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="taskName">Nombre Tarea</label>
+            <span class="invalid-feedback" *ngIf="!txtname.valid && invalidateName">*El nombre de la tarea es obligatorio</span>
+            <input [(ngModel)]="task.nombre" type="text" name="txtname" #txtname="ngModel"  class="form-control" id="taskName" required="required">   
+        </div>
+        <div class="form-group">
+            <label for="taskDescription">Descripción</label>
+            <span class="invalid-feedback" *ngIf="invalidateDescription && !txtdescription.valid">*La descripción de la tarea es obligatorio</span>
+            <textarea [(ngModel)]='task.descripcion' class="form-control" id="taskDescription" name="txtdescription" #txtdescription="ngModel" required="required"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="taskDate">Fecha Limite</label>
+            <input type="date" [ngModel]="DateFormat(task.fechaTarea)" (ngModelChange)="onChangeDate($event)"
+                class="form-control" id="taskDate" [min]="getToday()">
+            <div *ngIf="InvalidateDate" class="invalid-feedback">Fecha inválida. Por favor, introduzca una fecha válida.</div>
+        </div>
+        <div class="form-group">
+            <label for="taskCategory">Categoria</label>
+            <span class="invalid-feedback" *ngIf="!sltCategory.valid && invalidateCategory">*La categoria de la tarea es obligatorio</span>
+            <select [(ngModel)]="task.categoria" name="sltCategory" #sltCategory="ngModel" [compareWith]="categoryCompare" class="form-select" id="taskCategory" required >
+                <option value="" disabled selected>Seleccionar una categoría</option>
+                <option [ngValue]="category" *ngFor="let category of categories">{{category.nombre}}</option>
+            </select>    
+        </div>        
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [checked]="task.completada" (change)="onChangeTaskState($event)" id="taskStatus">
+                <label class="form-check-label" for="taskStatus">Finalizar Tarea</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="saveEdit()" type="submit" class="btn btn-primary btn-sm">Guardar</button>
+            <button (click)="cancelEdit()" class="btn btn-secondary btn-sm">Cancelar</button>
+        </div>
+    </div>

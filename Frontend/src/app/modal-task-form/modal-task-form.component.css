@@ -1,0 +1,8 @@
+.form-check {
+    margin-top: 10px; /* Ajusta el espacio superior según tus necesidades */
+}
+
+.form-check-label {
+    display: block;
+    margin-left: 1px; /* Ajusta el espacio izquierdo según tus necesidades */
+}
