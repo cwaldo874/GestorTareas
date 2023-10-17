@@ -3,22 +3,24 @@
     <h1>Login</h1>
     <div class="form-group row">
       <div class="col-sm-12">
-      <input type="email" [(ngModel)]="user.email" name="txtemail" #txtemail="ngModel" class="form-control"
-        placeholder="Correo" required="required" email />
-      <span class="invalid-feedback" *ngIf="!txtemail.valid && txtemail.touched">El correo es obligatorio</span>
-    </div>
+        <input type="email" [(ngModel)]="user.email" name="txtemail" #txtemail="ngModel" class="form-control"
+          placeholder="Correo" required="required" email />
+        <span class="invalid-feedback" *ngIf="!txtemail.valid && txtemail.touched">El correo es obligatorio</span>
+      </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-12">
-      <input type="password" [(ngModel)]="user.password" name="txtpassword" #txtpassword="ngModel" class="form-control"
-        placeholder="Contraseña" required="required" />
-      <span class="invalid-feedback" *ngIf="!txtpassword.valid && txtpassword.touched">La contraseña es obligatoria</span>
+        <input type="password" [(ngModel)]="user.password" name="txtpassword" #txtpassword="ngModel"
+          class="form-control" placeholder="Contraseña" required="required" />
+        <span class="invalid-feedback" *ngIf="!txtpassword.valid && txtpassword.touched">La contraseña es
+          obligatoria</span>
       </div>
     </div>
     <div class="form-group row">
       <div class="col-sm-10 offset-sm-2">
-    <button type="submit" (click)="login()" class="btn btn-primary">Ingresar</button>
-  </div>
-</div>
+        <span class="invalid-feedback" *ngIf="validarAutenticacion">Usuario o contraseña incorrectos</span>
+        <button type="submit" (click)="login()" class="btn btn-primary">Ingresar</button>
+      </div>
+    </div>
   </form>
 </div>

@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class ModalLoginComponent {
   user: User = new User();
   token: string;
+  validarAutenticacion=false;
 
   constructor(private userService: UserService, private router: Router) { }
-
 
   login() {
     if (!this.validateEmailFormat(this.user.email)) {
@@ -34,8 +34,11 @@ export class ModalLoginComponent {
   generateToken(user: User): void {
     this.userService.getTokenUser(user).subscribe((data: any) => {
       this.token = data;
+      console.log(data)
       localStorage.setItem('Token', JSON.stringify(this.token));
       this.router.navigate(['task-list']);
+    },(error: any) => {
+      this.validarAutenticacion= true;
     }
     );
   }
