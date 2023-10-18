@@ -1,4 +1,4 @@
-/****** Object:  Database [GestorTarea]    Script Date: 17/10/2023 7:27:39 a. m. ******/
+/****** Object:  Database [GestorTarea]    Script Date: 17/10/2023 7:59:04 p. m. ******/
 CREATE DATABASE [GestorTarea]  (EDITION = 'GeneralPurpose', SERVICE_OBJECTIVE = 'GP_S_Gen5_1', MAXSIZE = 32 GB) WITH CATALOG_COLLATION = SQL_Latin1_General_CP1_CI_AS, LEDGER = OFF;
 GO
 ALTER DATABASE [GestorTarea] SET COMPATIBILITY_LEVEL = 150
@@ -47,7 +47,7 @@ GO
 GO
 -- ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 8;
 GO
-/****** Object:  Table [dbo].[Categorias]    Script Date: 17/10/2023 7:27:40 a. m. ******/
+/****** Object:  Table [dbo].[Categorias]    Script Date: 17/10/2023 7:59:04 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -61,7 +61,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tareas]    Script Date: 17/10/2023 7:27:40 a. m. ******/
+/****** Object:  Table [dbo].[Tareas]    Script Date: 17/10/2023 7:59:04 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,13 +73,14 @@ CREATE TABLE [dbo].[Tareas](
 	[FechaTarea] [datetime] NULL,
 	[Completada] [bit] NULL,
 	[CategoriaId] [int] NULL,
+	[UsuarioId] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 17/10/2023 7:27:40 a. m. ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 17/10/2023 7:59:04 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -105,13 +106,15 @@ SET IDENTITY_INSERT [dbo].[Categorias] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Tareas] ON 
 GO
-INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId]) VALUES (2, N'prueba 2', N'prueba', CAST(N'2023-10-17T00:00:00.000' AS DateTime), 1, 2)
+INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId], [UsuarioId]) VALUES (2, N'prueba 2', N'prueba', CAST(N'2023-10-17T00:00:00.000' AS DateTime), 1, 2, 1)
 GO
-INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId]) VALUES (3, N'reunion de daily', N'reunion con el equipo', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 1, 1)
+INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId], [UsuarioId]) VALUES (3, N'reunion de daily', N'reunion con el equipo', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 1, 1, 1)
 GO
-INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId]) VALUES (7, N'desarrollo de api', N'desarrollar api', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 0, 1)
+INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId], [UsuarioId]) VALUES (7, N'desarrollo de api', N'desarrollar api', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 0, 1, 1)
 GO
-INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId]) VALUES (13, N'reunion de levantamiento', N'reunion', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 0, 1)
+INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId], [UsuarioId]) VALUES (13, N'reunion de levantamiento', N'reunion', CAST(N'2023-10-16T00:00:00.000' AS DateTime), 0, 1, 1)
+GO
+INSERT [dbo].[Tareas] ([id], [Nombre], [Descripcion], [FechaTarea], [Completada], [CategoriaId], [UsuarioId]) VALUES (15, N'prueba de carlos ', N'descripcion de prueba', CAST(N'2023-10-18T00:00:00.000' AS DateTime), 0, 1, 2)
 GO
 SET IDENTITY_INSERT [dbo].[Tareas] OFF
 GO
@@ -119,10 +122,15 @@ SET IDENTITY_INSERT [dbo].[Usuarios] ON
 GO
 INSERT [dbo].[Usuarios] ([id], [Nombre], [Correo], [Clave]) VALUES (1, N'waldo', N'waldo@hotmail.com', N'123')
 GO
+INSERT [dbo].[Usuarios] ([id], [Nombre], [Correo], [Clave]) VALUES (2, N'carlos', N'carlos@gmail.com', N'456')
+GO
 SET IDENTITY_INSERT [dbo].[Usuarios] OFF
 GO
 ALTER TABLE [dbo].[Tareas]  WITH CHECK ADD FOREIGN KEY([CategoriaId])
 REFERENCES [dbo].[Categorias] ([id])
+GO
+ALTER TABLE [dbo].[Tareas]  WITH CHECK ADD FOREIGN KEY([UsuarioId])
+REFERENCES [dbo].[Usuarios] ([id])
 GO
 ALTER DATABASE [GestorTarea] SET  READ_WRITE 
 GO
