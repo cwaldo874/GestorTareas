@@ -20,7 +20,8 @@ builder.Services.AddDbContext<UsuarioDbContext>(options =>
 builder.Services.AddTransient<ITareaRepository, TareaRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ILoginRepository, LoginRepository>();
-
+builder.Services.AddHttpContextAccessor();
+    
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyOrigin",

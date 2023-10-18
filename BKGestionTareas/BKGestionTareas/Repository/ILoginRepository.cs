@@ -6,6 +6,8 @@ namespace BKGestionTareas.Repository
     {
         bool VerifyUserExist(DtoUsuario dtoUsuario);
         string CreateToken(DtoUsuario dtoUsuario, string secretKey);
+        int GetUserByToken();
+
     }
 }
 

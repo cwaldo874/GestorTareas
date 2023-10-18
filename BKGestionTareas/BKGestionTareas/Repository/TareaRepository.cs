@@ -3,13 +3,20 @@ using BKGestionTareas.DTO;
 using BKGestionTareas.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BKGestionTareas.Repository
 {
     public class TareaRepository : ITareaRepository
     {
         private readonly TareaDbContext _context;
-        public TareaRepository(TareaDbContext context) => _context = context;
+        private readonly ILoginRepository _ILoginRepository;
+        public TareaRepository(TareaDbContext context, ILoginRepository ILoginRepository)
+        {
+            _context = context;
+            _ILoginRepository = ILoginRepository;
+        }
+        
 
         public async Task<DtoTarea> CreateTasktAsync(DtoTarea dtoTarea)
         {
@@ -41,8 +48,11 @@ namespace BKGestionTareas.Repository
 
         public IEnumerable<DtoTarea> GetTasks()
         {
-            List<Tarea> tareas = _context.Tareas.ToList();
+            int idUsuario = _ILoginRepository.GetUserByToken();
+            List<Tarea> tareas = _context.Tareas.Where(t=>t.UsuarioId== idUsuario) .ToList();
             List<DtoTarea> dtoTareas = new List<DtoTarea>();
+
+                
             foreach (var tarea in tareas)
             {
                 var dtoTarea = GetDtoTask(tarea);
@@ -83,8 +93,11 @@ namespace BKGestionTareas.Repository
                 FechaTarea = dtotarea.FechaTarea,
                 Completada = dtotarea.Completada,
                 CategoriaId = dtotarea.Categoria.Id,
-            };
+                UsuarioId= _ILoginRepository.GetUserByToken()
+        };
             return tarea;
         }
+
+        
     }
 }

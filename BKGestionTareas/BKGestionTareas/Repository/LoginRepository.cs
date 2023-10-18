@@ -13,11 +13,16 @@ namespace BKGestionTareas.Repository
     public class LoginRepository:ILoginRepository
     {
         private readonly UsuarioDbContext _context;
-        public LoginRepository(UsuarioDbContext context) => _context = context;
-
+        private Usuario usuario;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public LoginRepository(UsuarioDbContext context, IHttpContextAccessor httpContextAccessor)
+        { 
+            _context = context;
+            _httpContextAccessor = httpContextAccessor;
+        }
         public bool VerifyUserExist(DtoUsuario dtoUsuario)
         {
-            Usuario usuario = _context.Usuarios.AsNoTracking().FirstOrDefault(t => t.Correo == dtoUsuario.Email && t.Clave == dtoUsuario.Password);
+            usuario = _context.Usuarios.AsNoTracking().FirstOrDefault(t => t.Correo == dtoUsuario.Email && t.Clave == dtoUsuario.Password);
             if (usuario == null)
                 return false;
             return true;
@@ -27,7 +32,7 @@ namespace BKGestionTareas.Repository
         {
             var keyBytes = Encoding.ASCII.GetBytes(secretKey);
             var claims = new ClaimsIdentity();
-            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, dtoUsuario.Email));
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -41,6 +46,29 @@ namespace BKGestionTareas.Repository
             string tokencreado = tokenHandler.WriteToken(tokenConfig);
             return tokencreado;
         }
+
+        public int GetUserByToken()
+        {
+            int idUsario = 0;
+            var httpContext = _httpContextAccessor.HttpContext;
+            var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+            if (jwtToken != null)
+            {
+                var claims = jwtToken.Claims;
+                var result = claims.Select(t => t).Where(t => t.Type == "nameid").FirstOrDefault();
+                if (result != null)
+                {
+                    idUsario = Int32.Parse(result.Value);
+
+                }
+            }
+            return idUsario;
+        }
+
+
 
     }
 }

@@ -8,5 +8,6 @@
         public DateTime FechaTarea { get; set; }
         public bool Completada { get; set; }
         public int CategoriaId { get; set; }
+        public int UsuarioId { get; set; }
     }
 }

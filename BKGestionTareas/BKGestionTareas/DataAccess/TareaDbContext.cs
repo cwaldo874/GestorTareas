@@ -1,5 +1,4 @@
-﻿using BKGestionTareas.DataAccess.Data;
-using BKGestionTareas.Models;
+﻿using BKGestionTareas.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
